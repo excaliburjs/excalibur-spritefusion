@@ -1,4 +1,4 @@
-import { Entity, ImageSource, Loadable, Scene, SpriteSheet, Vector, vec } from "excalibur";
+import { BoundingBox, Entity, ImageSource, Loadable, Scene, SpriteSheet, Vector, vec } from "excalibur";
 import { z } from 'zod'
 import { Layer, LayerData } from "./layer";
 
@@ -137,6 +137,17 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
             scene.add(layer.tilemap);
             for (const entity of layer.entities) {
                 scene.add(entity);
+            }
+        }
+
+        if (this.useTileMapCameraStrategy) {
+            const firstLayer = this.layers[0];
+            if (firstLayer) {
+                const mapBounds = BoundingBox.fromDimension(
+                    this.data.mapWidth * this.data.tileSize,
+                    this.data.mapHeight * this.data.tileSize,
+                    Vector.Zero, pos);
+                scene.camera.strategy.limitCameraBounds(mapBounds);
             }
         }
     }
