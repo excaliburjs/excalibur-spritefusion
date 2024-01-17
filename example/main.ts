@@ -22,6 +22,7 @@ const spritefusionMap = new SpriteFusionResource({
     //         });
     //     }
     // }
+    // useTileMapCameraStrategy: true
 });
 
 const loader = new ex.Loader([spritefusionMap])
