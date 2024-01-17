@@ -32,10 +32,30 @@ export interface FactoryProps {
  }
 
 export interface SpriteFusionResourceOptions {
+    /**
+     * Path to map data json file provided by SpriteFusion
+     */
     mapPath: string,
+    /**
+     * Path to sprite sheet image path provided by SpriteFusion
+     */
     spritesheetPath: string,
+    /**
+     * Apply the excalibur camera strategy to keep within tilemap bounds
+     * 
+     * Default false
+     */
     useTileMapCameraStrategy?: boolean,
+    /**
+     * Register a factory to run when the plugin encounters a certain tile id, useful for placing
+     * custom entity implementations
+     */
     entityTileIdFactories?: Record<number, (props: FactoryProps) => Entity | undefined>;
+    /**
+     * Starting z index to use for the first layer
+     * 
+     * Default 0
+     */
     startZIndex?: number;
 }
 
@@ -43,6 +63,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
     public readonly mapPath: string;
     public readonly spriteSheetPath: string;
     public readonly startZIndex: number;
+    public readonly useTileMapCameraStrategy: boolean = false;
     public spritesheet!: SpriteSheet;
     public data!: SpriteFusionMapData;
     public layers: Layer[] = [];
@@ -50,13 +71,18 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
     public factories = new Map<number, (props: FactoryProps) => Entity | undefined>();
 
     constructor(options: SpriteFusionResourceOptions) {
-        const { mapPath, spritesheetPath, startZIndex } = options;
+        const { mapPath, spritesheetPath, startZIndex, entityTileIdFactories, useTileMapCameraStrategy } = options;
         this.mapPath = mapPath;
         this.spriteSheetPath = spritesheetPath;
         this.startZIndex = startZIndex ?? 0;
+        this.useTileMapCameraStrategy = useTileMapCameraStrategy ?? this.useTileMapCameraStrategy;
+
+        for (const key in entityTileIdFactories) {
+            this.registerEntityTileIdFactory(+key, entityTileIdFactories[+key]);
+         }
     }
 
-   registerEntityFactory(tileId: number, factory: (props: FactoryProps) => Entity | undefined): void {
+   registerEntityTileIdFactory(tileId: number, factory: (props: FactoryProps) => Entity | undefined): void {
         if (this.factories.has(tileId)) {
         console.warn(`Another factory has already been registered for tile id "${tileId}", this is probably a bug.`);
         }
@@ -68,7 +94,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
         }
     }
 
-    unregisterEntityFactory(tileId: number) {
+    unregisterEntityTileIdFactory(tileId: number) {
         if (!this.factories.has(tileId)) {
             console.warn(`No factory has been registered for tile id "${tileId}", cannot unregister!`);
         }

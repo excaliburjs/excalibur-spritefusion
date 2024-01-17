@@ -10,7 +10,18 @@ const game = new ex.Engine({
 
 const spritefusionMap = new SpriteFusionResource({
     mapPath: './map/map.json',
-    spritesheetPath: './map/spritesheet.png'
+    spritesheetPath: './map/spritesheet.png',
+    // entityTileIdFactories: {
+    //     0 : (props) => {
+    //         return new ex.Actor({
+    //             pos: props.worldPos,
+    //             width: 16,
+    //             height: 16,
+    //             color: ex.Color.Red,
+    //             z: props.layer.order + 1
+    //         });
+    //     }
+    // }
 });
 
 const loader = new ex.Loader([spritefusionMap])
