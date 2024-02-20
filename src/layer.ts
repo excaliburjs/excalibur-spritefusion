@@ -66,7 +66,9 @@ export class Layer {
                 });
                 if (entity) {
                     this.entities.push(entity);
-                    this.tilemap.scene.add(entity);
+                    if (this.tilemap.scene) {
+                        this.tilemap.scene.add(entity);
+                    }
                 }
             }
         }

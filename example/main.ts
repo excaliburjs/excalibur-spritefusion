@@ -4,7 +4,8 @@ import { SpriteFusionResource } from '@excalibur-spritefusion';
 const game = new ex.Engine({
     width: 800,
     height: 600,
-    antialiasing: false,
+    pixelRatio: 2,
+    pixelArt: true,
     displayMode: ex.DisplayMode.FitScreenAndFill
 });
 
