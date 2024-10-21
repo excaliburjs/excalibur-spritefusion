@@ -4,6 +4,10 @@ This plugin supports the SpriteFusion data structure as of version 1.6.0!
 
 Sprite Fusion is a new lightweight Tilemap editor, check it out here https://www.spritefusion.com/editor
 
+Export your map as `JSON`, **IMPORTANT** Do not use the "save" option in the current version of the plugin.
+
+![json-export](./dont-save.png)
+
 
 ## Installation
 
