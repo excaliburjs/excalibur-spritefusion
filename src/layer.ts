@@ -36,7 +36,7 @@ export class Layer {
             const factory = this.resource.factories.get(spriteId);
             if (factory) {
                 const entity = factory({
-                    worldPos: tile.pos,
+                    worldPos: tile!.pos,
                     id: spriteId,
                     layer: this
                 });
@@ -48,8 +48,8 @@ export class Layer {
             }
 
             const sprite = resource.spritesheet.sprites[spriteId];
-            tile.addGraphic(sprite);
-            tile.solid = !!data.collider;
+            tile!.addGraphic(sprite);
+            tile!.solid = !!data.collider;
         }
     }
 
@@ -60,7 +60,7 @@ export class Layer {
             const factory = this.resource.factories.get(tileId);
             if (factory) {
                 const entity = factory({
-                    worldPos: tile.pos,
+                    worldPos: tile!.pos,
                     id: spriteId,
                     layer: this
                 });

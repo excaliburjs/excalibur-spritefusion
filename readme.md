@@ -1,6 +1,6 @@
 # Excalibur SpriteFusion Tile Map Plugin 
 
-This plugin supports the SpriteFusion data structure as of version 1.6.0!
+This plugin supports the latest SpriteFusion data structure!
 
 Sprite Fusion is a new lightweight Tilemap editor, check it out here https://www.spritefusion.com/editor
 

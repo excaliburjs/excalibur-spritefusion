@@ -10,8 +10,8 @@ const game = new ex.Engine({
 });
 
 const spritefusionMap = new SpriteFusionResource({
-    mapPath: './map/map.json',
-    spritesheetPath: './map/spritesheet.png',
+    mapPath: './test_level/map.json',
+    spritesheetPath: './test_level/spritesheet.png',
     // entityTileIdFactories: {
     //     0 : (props) => {
     //         return new ex.Actor({
