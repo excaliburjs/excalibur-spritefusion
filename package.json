@@ -1,15 +1,25 @@
 {
   "name": "@excaliburjs/plugin-spritefusion",
-  "version": "0.30.0",
+  "version": "0.30.2",
   "description": "Excalibur Sprite Fusion Plugin",
-  "main": "dist/excalibur-spritefusion.min.js",
-  "typings": "dist/src/index.d.ts",
+  "main": "build/umd/excalibur-spritefusion.min.js",
+  "typings": "build/umd/src/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./build/umd/src/index.d.ts",
+      "import": "./build/esm/excalibur-spritefusion.js",
+      "require": "./build/umd/excalibur-spritefusion.js"
+    }
+  },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.test.js --open",
     "start:no-open": "webpack-dev-server --config webpack.config.test.js",
     "start:ci-server": "webpack --config webpack.config.test.js && http-server ./example --port 8080",
     "watch": "webpack --progress --watch",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build:esm": "webpack --progress --config webpack.config.js --mode production --env output=esm",
+    "build:umd": "webpack --progress --config webpack.config.js --mode production",
+    "build": "npm run build:umd && npm run build:esm"
   },
   "author": "Erik Onarheim",
   "license": "BSD-2-Clause",
@@ -20,7 +30,7 @@
     "ts-loader": "9.5.1",
     "typescript": "5.7.2",
     "webpack": "5.97.1",
-    "webpack-cli": "5.1.4",
+    "webpack-cli": "6.0.1",
     "webpack-dev-server": "5.2.0"
   },
   "peerDependencies": {

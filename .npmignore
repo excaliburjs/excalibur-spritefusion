@@ -10,6 +10,9 @@ test-results
 playwright-report
 readme/*
 !dist/*
+!build/*
+!build/umd/src/*.d.ts
+!build/esm/src/*.d.ts
 **/webpack.config.js
 **/webpack.config.test.js
 *.png
