@@ -1,6 +1,6 @@
 {
   "name": "@excaliburjs/plugin-spritefusion",
-  "version": "0.30.2",
+  "version": "0.31.0",
   "description": "Excalibur Sprite Fusion Plugin",
   "main": "build/umd/excalibur-spritefusion.min.js",
   "typings": "build/umd/src/index.d.ts",
@@ -25,16 +25,16 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "cross-env": "7.0.3",
-    "excalibur": "~0.30.1",
+    "excalibur": "~0.31.0",
     "http-server": "14.1.1",
     "ts-loader": "9.5.1",
     "typescript": "5.7.2",
     "webpack": "5.97.1",
     "webpack-cli": "6.0.1",
-    "webpack-dev-server": "5.2.0"
+    "webpack-dev-server": "5.2.2"
   },
   "peerDependencies": {
-    "excalibur": "~0.30.1"
+    "excalibur": "~0.31.0"
   },
   "dependencies": {
     "zod": "3.24.1"
