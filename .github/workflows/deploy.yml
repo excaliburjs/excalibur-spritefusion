@@ -4,13 +4,11 @@ on:
     # No input required
   release:
     types: [published]
+  workflow_call:
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
   deploy_release:
     name: Publish npm package
-    needs: [build]
     runs-on: [ubuntu-latest]
     permissions:
       contents: read
