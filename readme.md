@@ -78,6 +78,32 @@ Specify the tile id according to this scheme, you can use this to select special
 
 Now in SpriteFusion (as of 10/20/2025), custom tile data is now available!
 
+### Tile Attributes!!!!!
+
+![New Tile Attribute](./tileattribut.png)
+
+When you use SF you can add json data to a tile's location, and it shows up like this when the JSON is exported:
+
+```json
+{
+  "tileSize": 16,
+  "mapWidth": 30,
+  "mapHeight": 12,
+  "layers": [
+    {
+      "name": "ObjectLayer",
+      "tiles": [
+        { "id": "0", "x": 25, "y": 3, "attributes": { "entity": "bottle" } },
+        { "id": "1", "x": 10, "y": 6, "attributes": { "entity": "mushroom" } },
+        { "id": "5", "x": 4, "y": 4, "attributes": { "entity": "knight" } }
+      ],
+      "collider": false
+    },
+...
+```
+
+### How the plugin manages this
+
 To leverage this, there are a couple new interface properties available in the API
 
 ```ts
