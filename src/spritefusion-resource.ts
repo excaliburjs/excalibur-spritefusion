@@ -1,4 +1,4 @@
-import { BoundingBox, Entity, ImageSource, Loadable, Scene, Sprite, SpriteSheet, Tile, Vector, vec } from "excalibur";
+import { BoundingBox, Entity, ImageSource, Loadable, Scene, Sprite, SpriteSheet, TileMap, Vector, vec } from "excalibur";
 import { z } from "zod";
 import { Layer, LayerData } from "./layer";
 
@@ -175,7 +175,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
     return this.spritesheet.sprites[numtileId];
   }
 
-  getTileMap(layername: string) {
+  getTileMap(layername: string): TileMap | undefined {
     for (const layer of this.layers) {
       if (layer.data.name === layername) {
         return layer.tilemap;
