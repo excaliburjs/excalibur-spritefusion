@@ -80,7 +80,7 @@ Now in SpriteFusion (as of 10/20/2025), custom tile data is now available!
 
 ### Tile Attributes!!!!!
 
-![New Tile Attribute](./tileattribut.png)
+![New Tile Attribute](./tileattribute.png)
 
 When you use SF you can add json data to a tile's location, and it shows up like this when the JSON is exported:
 

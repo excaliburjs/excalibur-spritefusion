@@ -10,13 +10,22 @@ export const SpriteFusionMapData = z.object({
 });
 
 export interface TileData {
-  id: string;
+  /**
+   * SpriteFusion Tile Id
+   */
+  id: number;
+  /**
+   * The x and y position of the tile
+   */
   x: number;
   y: number;
+  /**
+   * The optional attributes of the tile
+   * */
   attributes: any;
 }
 
-export interface AttributeData {
+export interface TileAttributeData {
   tileData: TileData;
   mapData: SpriteFusionMapData;
 }
@@ -27,18 +36,15 @@ export interface SpriteFusionAddToSceneOptions {
   pos: Vector;
 }
 
-export interface FactoryProps {
+//Have FactoryProps extends TileData
+export interface FactoryProps extends TileData {
   /**
    * Excalibur world position
-   */
+   * */
   worldPos: Vector;
   /**
-   * SpriteFusion Tile Id
-   */
-  id: number;
-  /**
    * Layer that this object is part of
-   */
+   * */
   layer: Layer;
 }
 
@@ -65,7 +71,7 @@ export interface SpriteFusionResourceOptions {
   /**
    * Callback to run when attributes are encountered
    */
-  attributeCallback?: (attData: AttributeData) => void;
+  tileAttributeFactory?: (attData: TileAttributeData) => void;
   /**
    * List of layer names to treat as object layers
    *
@@ -87,7 +93,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
   public spritesheet!: SpriteSheet;
   public data!: SpriteFusionMapData;
   public layers: Layer[] = [];
-  public attributeCallback?: (attData: AttributeData) => void | undefined = undefined;
+  public tileAttributeFactory?: (attData: TileAttributeData) => void | undefined = undefined;
   public objectLayers: string[] = [];
   public mapData: SpriteFusionMapData;
 
@@ -105,7 +111,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
     this.spriteSheetPath = spritesheetPath;
     this.startZIndex = startZIndex ?? 0;
     this.useTileMapCameraStrategy = useTileMapCameraStrategy ?? this.useTileMapCameraStrategy;
-    this.attributeCallback = options.attributeCallback;
+    this.tileAttributeFactory = options.tileAttributeFactory;
     this.objectLayers = options.objectLayers ?? this.objectLayers;
 
     for (const key in entityTileIdFactories) {
@@ -159,7 +165,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
     const layers = this.data.layers.slice();
     let order = this.startZIndex;
     for (let layer of layers.reverse()) {
-      const newLayer = new Layer(layer, order, this, this.attributeCallback, this.objectLayers);
+      const newLayer = new Layer(layer, order, this, this.tileAttributeFactory, this.objectLayers);
       this.layers.push(newLayer);
       order++;
     }
@@ -168,11 +174,13 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
     return !!this.data;
   }
 
-  getSpriteById(tileId: string): Sprite | undefined {
-    //confert tileId to number
-    let numtileId = parseInt(tileId);
-    if (isNaN(numtileId)) return undefined;
-    return this.spritesheet.sprites[numtileId];
+  getSpriteById(tileId: string | number): Sprite | undefined {
+    const spriteId = +tileId;
+    if (typeof tileId === "string") {
+      if (isNaN(spriteId)) return undefined;
+    }
+    //convert tileId to number
+    return this.spritesheet.sprites[spriteId];
   }
 
   getTileMap(layername: string): TileMap | undefined {

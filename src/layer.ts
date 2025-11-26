@@ -1,6 +1,6 @@
 import { Entity, TileMap } from "excalibur";
 import { z } from "zod";
-import { AttributeData, SpriteFusionMapData, SpriteFusionResource } from "./spritefusion-resource";
+import { TileAttributeData, SpriteFusionMapData, SpriteFusionResource } from "./spritefusion-resource";
 export const LayerData = z.object({
   name: z.string(),
   tiles: z.array(
@@ -25,7 +25,7 @@ export class Layer {
     public data: LayerData,
     public readonly order: number,
     public resource: SpriteFusionResource,
-    attributeCallback?: (attData: AttributeData) => void | undefined,
+    tileAttributeFactory?: (attData: TileAttributeData) => void | undefined,
     objectLayers?: string[]
   ) {
     this.collider = !!data.collider;
@@ -41,17 +41,19 @@ export class Layer {
     for (const tileData of data.tiles) {
       const spriteId = +tileData.id;
       const tile = this.tilemap.getTile(tileData.x, tileData.y);
-      if (tileData.attributes && attributeCallback) {
-        let attData: AttributeData = {
+      if (tileData.attributes && tileAttributeFactory) {
+        // manage sprite id
+        const spriteId = +tileData.id;
+        let attData: TileAttributeData = {
           tileData: {
             attributes: tileData.attributes,
-            id: tileData.id,
+            id: spriteId,
             x: tileData.x,
             y: tileData.y,
           },
           mapData: resource.data,
         };
-        attributeCallback(attData);
+        tileAttributeFactory(attData);
       }
 
       if (objectLayers?.includes(data.name)) {
@@ -64,6 +66,9 @@ export class Layer {
           worldPos: tile!.pos,
           id: spriteId,
           layer: this,
+          x: tileData.x,
+          y: tileData.y,
+          attributes: tileData.attributes,
         });
         if (entity) {
           this.entities.push(entity);
@@ -88,6 +93,9 @@ export class Layer {
           worldPos: tile!.pos,
           id: spriteId,
           layer: this,
+          x: tileData.x,
+          y: tileData.y,
+          attributes: tileData.attributes,
         });
         if (entity) {
           this.entities.push(entity);
