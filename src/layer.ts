@@ -35,6 +35,7 @@ export class Layer {
       columns: resource.data.mapWidth,
       tileWidth: resource.data.tileSize,
       tileHeight: resource.data.tileSize,
+      compositeStrategy: 'separate',
     });
     this.tilemap.z = order;
 

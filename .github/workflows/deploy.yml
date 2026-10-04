@@ -7,8 +7,14 @@ on:
   workflow_call:
 
 jobs:
+  # deploy_release declares `needs: [build]`, so the job has to actually exist here -
+  # it runs the CI workflow (build + type-check + snapshot tests) as a reusable
+  # workflow, the same way excalibur-aseprite and excalibur-ldtk gate their publishes.
+  build:
+    uses: ./.github/workflows/build.yml
   deploy_release:
     name: Publish npm package
+    needs: [build]
     runs-on: [ubuntu-latest]
     permissions:
       contents: read
@@ -19,14 +25,15 @@ jobs:
         with:
           submodules: true
           fetch-depth: 100
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6.4.0
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: 'package.json'
+          package-manager-cache: false
           registry-url: 'https://registry.npmjs.org'
-          cache: npm
+
       - run: npm install -g npm@latest
       - run: npm ci
       - run: npm run build
         env:
           release: true
-      - run: npm publish --provenance
+      - run: npm stage publish --provenance

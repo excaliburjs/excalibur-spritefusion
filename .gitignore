@@ -1,3 +1,10 @@
 dist
 build
 node_modules
+# playwright snapshot suite output (the committed baselines live under
+# test/e2e/spritefusion.spec.ts-snapshots and ARE tracked)
+playwright-report
+test-results
+# webpack.config.test.js bundles example/main.ts into example/main.js
+example/main.js
+example/main.js.map
