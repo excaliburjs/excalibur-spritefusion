@@ -33,10 +33,6 @@ jobs:
 
   e2e:
     name: Snapshot tests (chromium/linux)
-    # Linux only on purpose: the committed baselines under
-    # test/e2e/spritefusion.spec.ts-snapshots are *-chromium-linux.png, and software
-    # rasterization differs enough across OSes that macOS/Windows runners would never
-    # match them.
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -51,9 +47,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - name: Install snapshot rendering deps
-        # xvfb gives chromium a real X display (headed rendering paths match the
-        # baselines); the font packages pin glyph rasterization so any on-canvas text
-        # renders identically to the recorded baselines.
+        # xvfb gives chromium a real X display
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb fonts-liberation fonts-noto-core

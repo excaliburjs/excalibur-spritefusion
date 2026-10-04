@@ -7,9 +7,6 @@ on:
   workflow_call:
 
 jobs:
-  # deploy_release declares `needs: [build]`, so the job has to actually exist here -
-  # it runs the CI workflow (build + type-check + snapshot tests) as a reusable
-  # workflow, the same way excalibur-aseprite and excalibur-ldtk gate their publishes.
   build:
     uses: ./.github/workflows/build.yml
   deploy_release:
