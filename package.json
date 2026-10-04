@@ -1,46 +1,58 @@
 {
   "name": "@excaliburjs/plugin-spritefusion",
-  "version": "0.32.0",
+  "version": "1.0.0-alpha.0",
   "description": "Excalibur Sprite Fusion Plugin",
   "repository": {
     "type": "git",
     "url": "https://github.com/excaliburjs/excalibur-spritefusion"
   },
-  "main": "build/umd/excalibur-spritefusion.min.js",
-  "typings": "build/umd/src/index.d.ts",
+  "main": "build/esm/excalibur-spritefusion.min.js",
+  "typings": "build/esm/src/index.d.ts",
+  "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./build/umd/src/index.d.ts",
-      "import": "./build/esm/excalibur-spritefusion.js",
-      "require": "./build/umd/excalibur-spritefusion.js"
+      "types": "./build/esm/src/index.d.ts",
+      "import": "./build/esm/excalibur-spritefusion.js"
     }
   },
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.test.js --open",
-    "start:no-open": "webpack-dev-server --config webpack.config.test.js",
-    "start:ci-server": "webpack --config webpack.config.test.js && http-server ./example --port 8080",
-    "watch": "webpack --progress --watch",
-    "build:esm": "webpack --progress --config webpack.config.js --mode production --env output=esm",
-    "build:umd": "webpack --progress --config webpack.config.js --mode production",
-    "build": "npm run build:umd && npm run build:esm"
+    "start": "vite example",
+    "watch": "vite dev",
+    "types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly",
+    "type-check": "tsc --noEmit",
+    "build:esm": "vite build",
+    "build": "npm run build:esm && npm run types",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots",
+    "test": "npm run test:e2e"
   },
   "author": "Erik Onarheim",
   "license": "BSD-2-Clause",
   "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "22.19.0",
     "cross-env": "7.0.3",
-    "excalibur": "~0.32.0",
-    "http-server": "14.1.1",
-    "ts-loader": "9.5.1",
-    "typescript": "5.7.2",
-    "webpack": "5.97.1",
-    "webpack-cli": "6.0.1",
-    "webpack-dev-server": "5.2.2"
+    "excalibur": "0.33.0-alpha.247",
+    "typescript": "7.0.2",
+    "vite": "8.2.2"
   },
   "peerDependencies": {
-    "excalibur": "~0.32.0"
+    "excalibur": ">=0.33.0-alpha.247"
   },
   "dependencies": {
     "zod": "3.24.1"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "error",
+      "version": ">=24"
+    },
+    "packageManager": {
+      "name": "npm",
+      "onFail": "error",
+      "version": ">=11"
+    }
   }
 }
