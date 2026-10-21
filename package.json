@@ -35,7 +35,7 @@
     "cross-env": "7.0.3",
     "excalibur": "0.33.0-alpha.247",
     "typescript": "7.0.2",
-    "vite": "8.2.2"
+    "vite": "8.2.4"
   },
   "peerDependencies": {
     "excalibur": ">=0.33.0-alpha.247"
