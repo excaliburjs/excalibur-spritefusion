@@ -33,15 +33,15 @@
     "@playwright/test": "1.63.0",
     "@types/node": "22.19.0",
     "cross-env": "7.0.3",
-    "excalibur": "0.33.0-alpha.247",
+    "excalibur": "^1.0.0",
     "typescript": "7.0.2",
-    "vite": "8.2.2"
+    "vite": "8.2.4"
   },
   "peerDependencies": {
-    "excalibur": ">=0.33.0-alpha.247"
+    "excalibur": "^1.0.0"
   },
   "dependencies": {
-    "zod": "3.24.1"
+    "zod": "4.6.6"
   },
   "devEngines": {
     "runtime": {

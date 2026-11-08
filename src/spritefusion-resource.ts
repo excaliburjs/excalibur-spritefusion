@@ -124,7 +124,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
       console.warn(`Another factory has already been registered for tile id "${tileId}", this is probably a bug.`);
     }
     this.factories.set(tileId, factory);
-    if (this.isLoaded()) {
+    if (this.isLoaded) {
       for (let layer of this.layers) {
         layer.runFactory(tileId);
       }
@@ -170,7 +170,7 @@ export class SpriteFusionResource implements Loadable<SpriteFusionMapData> {
       order++;
     }
   }
-  isLoaded(): boolean {
+  get isLoaded(): boolean {
     return !!this.data;
   }
 

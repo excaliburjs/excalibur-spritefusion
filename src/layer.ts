@@ -8,7 +8,7 @@ export const LayerData = z.object({
       id: z.string(),
       x: z.number(),
       y: z.number(),
-      attributes: z.any(),
+      attributes: z.optional(z.any()),
     })
   ),
   collider: z.optional(z.boolean()),
@@ -80,7 +80,7 @@ export class Layer {
 
       const sprite = resource.spritesheet.sprites[spriteId];
       tile!.addGraphic(sprite);
-      tile!.solid = !!data.collider;
+      tile!.isSolid = !!data.collider;
     }
   }
 

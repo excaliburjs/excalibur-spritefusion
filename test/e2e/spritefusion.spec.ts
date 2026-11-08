@@ -35,7 +35,7 @@ const INSTALL_DETERMINISM_HOOKS = `
       return false;
     }
     if (!engine.clock.__isFrozen) {
-      if (engine.clock.isRunning()) {
+      if (engine.clock.isRunning) {
         engine.clock.stop();
       }
       engine.clock.__isFrozen = true;
