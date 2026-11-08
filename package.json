@@ -1,6 +1,6 @@
 {
   "name": "@excaliburjs/plugin-spritefusion",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Excalibur Sprite Fusion Plugin",
   "repository": {
     "type": "git",
